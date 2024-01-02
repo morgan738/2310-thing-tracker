@@ -18,7 +18,9 @@ const init = async()=> {
 
   await client.connect()
   console.log("connected to database")
-  await seed()
+  if(process.env.SYNC){
+    await seed()
+  }
 
 
   const port = process.env.PORT || 3000;
