@@ -36,6 +36,7 @@ app.get('/things', async(req,res,next) => {
         const SQL = `
             SELECT *
             FROM things
+            ORDER BY name
         `
         const response = await client.query(SQL)
         res.send(response.rows)

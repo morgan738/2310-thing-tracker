@@ -1,6 +1,6 @@
 import React from "react";
 
-const Things = ({things, users}) => {
+const Things = ({things, users, addOwner, removeOwner}) => {
     return(
         <div>
             <h3>Things - {things.length}</h3>
@@ -16,6 +16,13 @@ const Things = ({things, users}) => {
                                             return(
                                                 <li key={user.id} className={thing.user_id === user.id ? 'owner': ''}>
                                                     {user.name}
+                                                    {
+                                                        thing.user_id === user.id ? (
+                                                            <button onClick={() => {removeOwner(thing)}}>Remove</button>
+                                                        ) : (
+                                                            <button onClick={() => {addOwner(thing, user)}}>Add</button>
+                                                        )
+                                                    }
                                                 </li>
                                             )
                                         })

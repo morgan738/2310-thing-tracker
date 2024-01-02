@@ -23,12 +23,28 @@ const App = ()=> {
     fetchThings()
   },[])
 
+  const addOwner = async(thing, user) => {
+    console.log(thing)
+    console.log(user)
+    const newThing = {...thing, user_id: user.id}
+    const response = await axios.put(`/api/things/${thing.id}`, newThing)
+    console.log(response.data)
+    setThings(things.map((_thing) => {return _thing.id === thing.id ? newThing : _thing}))
+  }
+
+  const removeOwner = async(thing) => {
+    const newThing = {...thing, user_id: null}
+    const response = await axios.put(`/api/things/${thing.id}`, newThing)
+    console.log(response.data)
+    setThings(things.map((_thing) => {return _thing.id === thing.id ? newThing : _thing}))
+  }
+
   return (
     <div>
       <h1>Thing Tracker</h1>
       <div>
-        <Users users={users}/>
-        <Things things={things} users={users}/>
+        <Users users={users} things={things}/>
+        <Things things={things} users={users} addOwner={addOwner} removeOwner={removeOwner}/>
       </div>
     </div>
   );
